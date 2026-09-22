@@ -72,7 +72,14 @@ own defaults.
   builds and briefly launches the app on a `windows-latest` runner (the
   app is WinForms and can only run on Windows, which this repo's
   contributors may not always have locally) and uploads `before.png` /
-  `after.png` as workflow artifacts for that PR's run.
+  `after.png` as workflow artifacts for that PR's run. It also pushes them
+  to the `screenshots` branch (`latest/before.png`, `latest/after.png`,
+  overwritten each run) since workflow artifacts are hosted on Azure Blob
+  Storage, which some sandboxed agent environments' network policy
+  blocks — the `screenshots` branch is fetchable through the ordinary
+  GitHub API/contents endpoint instead. The workflow can also be run
+  on-demand (`workflow_dispatch`, no PR needed) to get a single current
+  screenshot, e.g. to answer "show me the main form".
 - A PR that doesn't touch `FindLocation/` (docs, CI, config) has nothing
   to screenshot — say so instead of attaching identical or fabricated
   images.
