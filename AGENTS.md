@@ -26,3 +26,10 @@ Tests run via `dotnet test FindLocation.sln` (requires a Windows runner
 because the app targets `net8.0-windows`/WinForms). CI
 (`.github/workflows/tests.yml`) runs the suite on every pull request and on
 every push to `main`.
+
+## Screenshots
+
+See the "Screenshots before merging" section in
+[`GUARDRAILS.md`](./GUARDRAILS.md) — before/after screenshots (via
+`.github/workflows/screenshots.yml`) are required before merging any PR
+that changes `FindLocation/`.
