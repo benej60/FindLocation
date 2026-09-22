@@ -46,11 +46,18 @@ own defaults.
 - Run the project's build/tests for anything you change, when they exist.
 - Never skip, disable, or quarantine a failing test to make CI green;
   find and fix the root cause instead.
+- Add or update unit tests in `FindLocation.Tests` for any behavior you add
+  or change. The `Tests` GitHub Actions workflow
+  (`.github/workflows/tests.yml`) runs the test suite automatically on
+  every pull request (before merge) and on every push to `main` (after
+  merge) — do not merge a PR with a failing test run.
 
 ## Git workflow
 
-- Do not push directly to `main`/`master` — work on a feature/task branch.
-- Do not create a pull request unless explicitly asked to.
+- Every change goes through a pull request — do not push directly to
+  `main`/`master`. Work on a feature/task branch and open a PR for it.
+- Open one pull request per logical change; do not batch unrelated
+  changes into a single PR.
 - Never merge or approve your own pull request.
 
 ## Uncertainty

@@ -18,3 +18,11 @@ instructions.
 - `FindLocation.sln` — solution file.
 - `FindLocation/` — WinForms project source (`Program.cs`, `Form1.cs`,
   `Form1.Designer.cs`, `Form1.resx`).
+- `FindLocation.Tests/` — xUnit unit test project for `FindLocation`.
+
+## Testing
+
+Tests run via `dotnet test FindLocation.sln` (requires a Windows runner
+because the app targets `net8.0-windows`/WinForms). CI
+(`.github/workflows/tests.yml`) runs the suite on every pull request and on
+every push to `main`.
