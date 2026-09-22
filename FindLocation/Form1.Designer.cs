@@ -28,24 +28,24 @@ namespace FindLocation
         /// </summary>
         private void InitializeComponent()
         {
-            this.locationLabel = new System.Windows.Forms.Label();
+            this.positionsLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             //
-            // locationLabel
+            // positionsLabel
             //
-            this.locationLabel.AutoSize = true;
-            this.locationLabel.Location = new System.Drawing.Point(12, 9);
-            this.locationLabel.Name = "locationLabel";
-            this.locationLabel.Size = new System.Drawing.Size(76, 15);
-            this.locationLabel.TabIndex = 0;
-            this.locationLabel.Text = "X: 0, Y: 0";
+            this.positionsLabel.AutoSize = true;
+            this.positionsLabel.Location = new System.Drawing.Point(12, 9);
+            this.positionsLabel.Name = "positionsLabel";
+            this.positionsLabel.Size = new System.Drawing.Size(76, 15);
+            this.positionsLabel.TabIndex = 0;
+            this.positionsLabel.Text = "X: 0, Y: 0";
             //
             // Form1
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.locationLabel);
+            this.Controls.Add(this.positionsLabel);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -54,6 +54,6 @@ namespace FindLocation
 
         #endregion
 
-        private System.Windows.Forms.Label locationLabel;
+        private System.Windows.Forms.Label positionsLabel;
     }
 }
