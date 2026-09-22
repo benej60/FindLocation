@@ -5,6 +5,9 @@ on:
     branches: [ main ]
     paths:
       - 'FindLocation/**'
+  # Lets a maintainer or agent request an on-demand screenshot of the
+  # current app (e.g. "show me the main form") without needing a PR.
+  workflow_dispatch: {}
 
 jobs:
   screenshots:
@@ -27,6 +30,7 @@ jobs:
       # so the screenshot script/workflow from the PR head is always the one
       # that runs — including for the PR that first introduces them.
       - name: Screenshot base (before)
+        if: github.event_name == 'pull_request'
         shell: pwsh
         run: |
           git checkout ${{ github.event.pull_request.base.sha }} -- FindLocation FindLocation.sln
@@ -34,11 +38,16 @@ jobs:
           dotnet publish FindLocation/FindLocation.csproj -c Release -o publish-before
           ./.github/scripts/Take-Screenshot.ps1 -ExePath "publish-before/FindLocation.exe" -OutFile "before.png"
 
+      # On a PR this is the head commit; on a manual run it's just
+      # whatever ref was dispatched (e.g. main), giving a single current
+      # screenshot.
       - name: Screenshot head (after)
         shell: pwsh
         run: |
-          git checkout ${{ github.event.pull_request.head.sha }} -- FindLocation FindLocation.sln
-          git clean -xfd -- FindLocation
+          if ('${{ github.event_name }}' -eq 'pull_request') {
+            git checkout ${{ github.event.pull_request.head.sha }} -- FindLocation FindLocation.sln
+            git clean -xfd -- FindLocation
+          }
           dotnet publish FindLocation/FindLocation.csproj -c Release -o publish-after
           ./.github/scripts/Take-Screenshot.ps1 -ExePath "publish-after/FindLocation.exe" -OutFile "after.png"
 
@@ -49,3 +58,4 @@ jobs:
           path: |
             before.png
             after.png
+          if-no-files-found: ignore
