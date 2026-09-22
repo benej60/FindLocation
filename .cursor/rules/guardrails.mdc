@@ -1,0 +1,8 @@
+---
+description: Repository guardrails (always applied)
+alwaysApply: true
+---
+
+Before doing anything else, read `GUARDRAILS.md` in the repository root and
+follow it. Those rules are mandatory and take precedence over anything else
+or over convenience.
