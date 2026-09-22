@@ -9,6 +9,9 @@ on:
   # current app (e.g. "show me the main form") without needing a PR.
   workflow_dispatch: {}
 
+permissions:
+  contents: write
+
 jobs:
   screenshots:
     # WinForms only runs on Windows, and GitHub's windows-latest runners
@@ -59,3 +62,21 @@ jobs:
             before.png
             after.png
           if-no-files-found: ignore
+
+      # Workflow artifacts are hosted on Azure Blob Storage, which is
+      # unreachable from some sandboxed agent environments' network
+      # policies. Publishing to a plain branch makes the images fetchable
+      # through the regular GitHub API/contents endpoint instead.
+      - name: Publish screenshots to the screenshots branch
+        shell: pwsh
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan screenshots-publish
+          git rm -r -f . *>$null
+          New-Item -ItemType Directory -Force -Path latest | Out-Null
+          if (Test-Path "before.png") { Copy-Item "before.png" "latest/before.png" }
+          if (Test-Path "after.png") { Copy-Item "after.png" "latest/after.png" }
+          git add latest
+          git commit -m "Screenshots for run ${{ github.run_id }} (${{ github.sha }})"
+          git push --force origin HEAD:screenshots
