@@ -58,7 +58,27 @@ own defaults.
   `main`/`master`. Work on a feature/task branch and open a PR for it.
 - Open one pull request per logical change; do not batch unrelated
   changes into a single PR.
-- Never merge or approve your own pull request.
+- Never merge or approve your own pull request on your own initiative.
+  Only merge a PR you authored when the user explicitly instructs you to
+  merge it in that conversation.
+
+## Screenshots before merging
+
+- Before merging a pull request that changes the running application
+  (anything under `FindLocation/`), get before (base branch) and after
+  (PR head) screenshots of the app and show them in the conversation. The
+  `PR Screenshots` GitHub Actions workflow
+  (`.github/workflows/screenshots.yml`) produces these automatically: it
+  builds and briefly launches the app on a `windows-latest` runner (the
+  app is WinForms and can only run on Windows, which this repo's
+  contributors may not always have locally) and uploads `before.png` /
+  `after.png` as workflow artifacts for that PR's run.
+- A PR that doesn't touch `FindLocation/` (docs, CI, config) has nothing
+  to screenshot — say so instead of attaching identical or fabricated
+  images.
+- Never fabricate, describe-instead-of-show, or reuse a stale screenshot.
+  If the screenshot workflow hasn't run yet or failed, say that plainly
+  and get it green before merging.
 
 ## Uncertainty
 
