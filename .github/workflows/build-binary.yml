@@ -26,11 +26,15 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
+      # EnableCompressionInSingleFile compresses the bundled runtime so the
+      # exe fits under GitHub's 100 MB per-file push limit (an
+      # uncompressed self-contained single file comes out over 140 MB).
       - name: Publish self-contained single-file binary
         run: |
           dotnet publish FindLocation/FindLocation.csproj -c Release -r win-x64 `
             --self-contained true `
             -p:PublishSingleFile=true `
+            -p:EnableCompressionInSingleFile=true `
             -o publish
 
       - name: Upload binary artifact
