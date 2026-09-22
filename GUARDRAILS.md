@@ -87,6 +87,25 @@ own defaults.
   If the screenshot workflow hasn't run yet or failed, say that plainly
   and get it green before merging.
 
+## Downloadable binary
+
+- When opening a pull request (or whenever a runnable local build is
+  otherwise requested), give a download link to a binary of the app that
+  can be run locally. The `Build Binary` GitHub Actions workflow
+  (`.github/workflows/build-binary.yml`) produces this automatically: it
+  publishes a self-contained, single-file `win-x64` build of `FindLocation`
+  on a `windows-latest` runner and pushes it to the `builds` branch
+  (`latest/FindLocation.exe`, overwritten each run), for the same reason
+  screenshots are pushed to the `screenshots` branch — workflow artifacts
+  are hosted on Azure Blob Storage, which some sandboxed agent
+  environments' network policy blocks, while a plain branch is fetchable
+  through the ordinary GitHub API/contents endpoint or a
+  `raw.githubusercontent.com` link. The workflow can also be run on-demand
+  (`workflow_dispatch`, no PR needed).
+- Trigger the workflow (or wait for it to run on the PR) before handing out
+  the link, and make sure it actually succeeded — never fabricate or reuse
+  a stale/unrelated binary link.
+
 ## Uncertainty
 
 - If a request is ambiguous, destructive, or would affect shared/external
