@@ -1,0 +1,61 @@
+name: Build Binary
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'FindLocation/**'
+  # Lets a maintainer or agent request an on-demand build of the current
+  # app without needing a PR.
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    # WinForms (net8.0-windows) can only build for Windows.
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Publish self-contained single-file binary
+        run: |
+          dotnet publish FindLocation/FindLocation.csproj -c Release -r win-x64 `
+            --self-contained true `
+            -p:PublishSingleFile=true `
+            -o publish
+
+      - name: Upload binary artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: FindLocation-win-x64
+          path: publish/FindLocation.exe
+          if-no-files-found: error
+
+      # Workflow artifacts are hosted on Azure Blob Storage, which is
+      # unreachable from some sandboxed agent environments' network
+      # policies (see the same note in screenshots.yml). Publishing to a
+      # plain branch makes the binary fetchable through the regular GitHub
+      # API/contents endpoint (or a raw.githubusercontent.com link)
+      # instead, so a download link can always be given for a runnable
+      # local binary.
+      - name: Publish binary to the builds branch
+        shell: pwsh
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan builds-publish
+          git rm -r -f . *>$null
+          New-Item -ItemType Directory -Force -Path latest | Out-Null
+          Copy-Item "publish/FindLocation.exe" "latest/FindLocation.exe"
+          git add latest
+          git commit -m "Binary for run ${{ github.run_id }} (${{ github.sha }})"
+          git push --force origin HEAD:builds

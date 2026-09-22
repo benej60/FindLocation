@@ -33,3 +33,10 @@ See the "Screenshots before merging" section in
 [`GUARDRAILS.md`](./GUARDRAILS.md) — before/after screenshots (via
 `.github/workflows/screenshots.yml`) are required before merging any PR
 that changes `FindLocation/`.
+
+## Downloadable binary
+
+See the "Downloadable binary" section in
+[`GUARDRAILS.md`](./GUARDRAILS.md) — give a download link to a runnable
+local binary (via `.github/workflows/build-binary.yml`) whenever opening a
+pull request.
