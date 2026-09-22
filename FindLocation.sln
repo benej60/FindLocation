@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FindLocation", "FindLocation\FindLocation.csproj", "{E21999B1-D3C2-4D39-A9DF-75609E0B5631}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FindLocation.Tests", "FindLocation.Tests\FindLocation.Tests.csproj", "{F58D7A4A-D32F-4A78-976A-56EFE5A17865}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{E21999B1-D3C2-4D39-A9DF-75609E0B5631}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E21999B1-D3C2-4D39-A9DF-75609E0B5631}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E21999B1-D3C2-4D39-A9DF-75609E0B5631}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F58D7A4A-D32F-4A78-976A-56EFE5A17865}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F58D7A4A-D32F-4A78-976A-56EFE5A17865}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F58D7A4A-D32F-4A78-976A-56EFE5A17865}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F58D7A4A-D32F-4A78-976A-56EFE5A17865}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
