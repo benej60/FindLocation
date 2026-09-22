@@ -1,0 +1,30 @@
+name: Tests
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    # WinForms (net8.0-windows) can only build and run on Windows.
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore FindLocation.sln
+
+      - name: Build
+        run: dotnet build FindLocation.sln --no-restore --configuration Release
+
+      - name: Test
+        run: dotnet test FindLocation.sln --no-build --configuration Release --verbosity normal
